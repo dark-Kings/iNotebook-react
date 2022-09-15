@@ -1,17 +1,17 @@
 import './App.css';
 import {
-  BrowserRouter as Router, Route, Routes,
+  BrowserRouter as Router, Route, Routes
 } from "react-router-dom";
 import Navbar from './component/Navbar';
 import About from './component/About';
 import Home from './component/Home';
-import NoteState from './context/notes/NoteState';
+import Notestate from './context/notes/Notestate';
 
 
 function App() {
   return (
     <>
-         <NoteState>
+       <Notestate>
         <Router>
           <Navbar />
           <Routes>
@@ -20,7 +20,7 @@ function App() {
             <Route exact path="/about" element={<About />} />
           </Routes>
         </Router>
-        </NoteState>
+        </Notestate>
     </>
   );
 }

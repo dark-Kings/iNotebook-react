@@ -1,17 +1,26 @@
-import NoteContext from "./noteContext";
+import { useState } from "react";
+import Notecontext from "./Notecontext";
 
-const NoteState =(props)=>{
-        const state = {
+const Notestate =(props)=>{
+        const s1 = {
             "name":"anshul",
             "class":"5"
         };
+        const[state,setState] = useState(s1);
+      let  update=()=>{
+            setTimeout(() => {
+                setState({
+                    "name":"akshay",
+                    "class":"7"
+                })
+            }, 1000);
+        }
     return(
-      // eslint-disable-next-line
-        <NoteContext.provider value={state}>
+        <Notecontext.Provider value={{state,update}}>
             {props.children}
-        </NoteContext.provider>
+        </Notecontext.Provider>
     )
 }
 
 
-export default NoteState;
+export default Notestate;
