@@ -6,21 +6,24 @@ import Navbar from './component/Navbar';
 import About from './component/About';
 import Home from './component/Home';
 import Notestate from './context/notes/Notestate';
+import Alert from './component/Alert';
 
 
 function App() {
   return (
     <>
-       <Notestate>
+      <Notestate>
         <Router>
           <Navbar />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/home" element={<Home />} />
-            <Route exact path="/about" element={<About />} />
-          </Routes>
+          <Alert message="this is amazing react course"/>
+          <div className="container">
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/about" element={<About />} />
+            </Routes>
+          </div>
         </Router>
-        </Notestate>
+      </Notestate>
     </>
   );
 }

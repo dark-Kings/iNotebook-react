@@ -56,7 +56,7 @@ try {
         newNote.title= title;
     }
     if(description){
-        newNote.desscription = description;
+        newNote.description = description;
     }
     if(tag){
         newNote.tag= tag;
