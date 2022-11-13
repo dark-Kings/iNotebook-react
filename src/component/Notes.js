@@ -2,27 +2,37 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import noteContext from '../context/notes/Notecontext';
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const Notes = () => {
+const Notes = (props) => {
+  const navigation = useNavigate();
   const context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
   const [note,setNote]=useState({id:"",etitle:"",edescription:"",etag:""});
   const ref = useRef(null);
   const refClose = useRef(null);
   useEffect(() => {
-    getNotes();
+    if((localStorage.getItem("token"))){
+      getNotes();
+    }
+    else{
+      navigation("/login");
+    }
     // eslint-disable-next-line
   }, []);
+
   const updateNote = (currentNote) => {
     ref.current.click();
     setNote({id:currentNote._id,etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag});
   }
+
   const handleClick = (e) => {
     // console.log("updating the note...",note);
     editNote(note.id,note.etitle,note.edescription,note.etag);
     refClose.current.click();
+    props.showAlert("Updated successfully","success");
   }
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
@@ -32,7 +42,7 @@ const Notes = () => {
 
   return (
     <>
-      <AddNote />
+      <AddNote showAlert={props.showAlert}/>
 
       {/* <!-- Button trigger modal --> */}
       <button type="button" className="btn btn-primary d-none" ref={ref} data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
@@ -77,7 +87,7 @@ const Notes = () => {
          <b> {notes.length===0 && 'No notes to display'}</b>
         </div>
         {notes.map((note) => {
-          return <Noteitem key={note._id} updateNote={updateNote} note={note} />;
+          return <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />;
         })}
       </div>
     </>

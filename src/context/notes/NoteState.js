@@ -13,7 +13,7 @@ const Notestate = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMxZWY3M2FmMTQwOWJlMzQ3MWQwOTcyIn0sImlhdCI6MTY2MzA1MTkwNX0.mCe7TzLEJDy-ll1eSd5LSgqjHbvvejp1CFX31TnoxKE"
+        "auth-token": localStorage.getItem("token")
       }
     });
     const json = await response.json();
@@ -29,7 +29,7 @@ const Notestate = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMxZWY3M2FmMTQwOWJlMzQ3MWQwOTcyIn0sImlhdCI6MTY2MzA1MTkwNX0.mCe7TzLEJDy-ll1eSd5LSgqjHbvvejp1CFX31TnoxKE"
+        "auth-token": localStorage.getItem("token")
       },
       body: JSON.stringify({title, description, tag})
     });
@@ -46,11 +46,12 @@ const Notestate = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMxZWY3M2FmMTQwOWJlMzQ3MWQwOTcyIn0sImlhdCI6MTY2MzA1MTkwNX0.mCe7TzLEJDy-ll1eSd5LSgqjHbvvejp1CFX31TnoxKE"
+        "auth-token": localStorage.getItem("token")
       },
     });
+    // eslint-disable-next-line
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     const newNotes = notes.filter((note) => { return (note._id !== id) });
     setNotes(newNotes);
   }
@@ -62,12 +63,13 @@ const Notestate = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMxZWY3M2FmMTQwOWJlMzQ3MWQwOTcyIn0sImlhdCI6MTY2MzA1MTkwNX0.mCe7TzLEJDy-ll1eSd5LSgqjHbvvejp1CFX31TnoxKE"
+        "auth-token": localStorage.getItem("token")
       },
       body: JSON.stringify({title, description, tag})
     });
+    // eslint-disable-next-line
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     
     let newNotes = JSON.parse(JSON.stringify(notes));
     // Logic to edit in client
@@ -83,7 +85,6 @@ const Notestate = (props) => {
     setNotes(newNotes);
   }
   return (
-    // <Notecontext.Provider value={{state,update}}>
     <Notecontext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
       {props.children}
     </Notecontext.Provider>
